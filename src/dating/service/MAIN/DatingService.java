@@ -51,7 +51,7 @@ public class DatingService {
     }
 
     //<editor-fold defaultstate="collapsed" desc="INIT LIST ADVERTISER">
-    public void initListResponder() {
+    public void initListAdvertiser() {
 
         AdvertiserDTO advertiserDTO = new AdvertiserDTO();
         System.out.println("STEP A: CREATE LIST CUSTOMER");
@@ -64,7 +64,7 @@ public class DatingService {
         partnerSoughtDTO.setMaxAge(30);
         partnerSoughtDTO.setMinIncome(20000f);
         partnerSoughtDTO.setMaxIncome(30000f);
-
+        
         advertiserDTO.setUserName("advertiser 1");
         advertiserDTO.setPassword("advertiser");
         advertiserDTO.setGender("male");
@@ -72,6 +72,7 @@ public class DatingService {
         advertiserDTO.setIncome(20000f);
         advertiserDTO.setAdvertDescription("Hello! I'm advertiser 1");
         advertiserDTO.setPartnerSought(partnerSoughtDTO);
+        advertiserList.add(advertiserDTO);
 
         // 2
         partnerSoughtDTO.setGender("male");
@@ -87,6 +88,7 @@ public class DatingService {
         advertiserDTO.setIncome(30000f);
         advertiserDTO.setAdvertDescription("Hello! I'm advertiser 2");
         advertiserDTO.setPartnerSought(partnerSoughtDTO);
+        advertiserList.add(advertiserDTO);
 
         // 3
         partnerSoughtDTO.setGender("female");
@@ -102,14 +104,13 @@ public class DatingService {
         advertiserDTO.setIncome(40000f);
         advertiserDTO.setAdvertDescription("Hello! I'm advertiser 3");
         advertiserDTO.setPartnerSought(partnerSoughtDTO);
-
         advertiserList.add(advertiserDTO);
 
     }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="INIT LIST RESPONDER">
-    public void initListAdvertiser() {
+    public void initListResponder() {
 
         ResponderDTO responderDTO = new ResponderDTO();
 
@@ -135,7 +136,6 @@ public class DatingService {
         responderDTO.setGender("male");
         responderDTO.setAge(40);
         responderDTO.setIncome(40000f);
-
         responderList.add(responderDTO);
 
     }
