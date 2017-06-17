@@ -53,11 +53,11 @@ public class DatingService {
     //<editor-fold defaultstate="collapsed" desc="INIT LIST ADVERTISER">
     public void initListAdvertiser() {
 
-        AdvertiserDTO advertiserDTO = new AdvertiserDTO();
         System.out.println("STEP A: CREATE LIST CUSTOMER");
         System.out.println("-----------------------------");
 
         // 1
+        AdvertiserDTO advertiserDTO = new AdvertiserDTO();
         PartnerSoughtDTO partnerSoughtDTO = new PartnerSoughtDTO();
         partnerSoughtDTO.setGender("female");
         partnerSoughtDTO.setMinAge(20);
@@ -75,6 +75,8 @@ public class DatingService {
         advertiserList.add(advertiserDTO);
 
         // 2
+        advertiserDTO = new AdvertiserDTO();
+        partnerSoughtDTO = new PartnerSoughtDTO();
         partnerSoughtDTO.setGender("male");
         partnerSoughtDTO.setMinAge(30);
         partnerSoughtDTO.setMaxAge(40);
@@ -91,6 +93,8 @@ public class DatingService {
         advertiserList.add(advertiserDTO);
 
         // 3
+        advertiserDTO = new AdvertiserDTO();
+        partnerSoughtDTO = new PartnerSoughtDTO();
         partnerSoughtDTO.setGender("female");
         partnerSoughtDTO.setMinAge(40);
         partnerSoughtDTO.setMaxAge(50);
@@ -112,9 +116,8 @@ public class DatingService {
     //<editor-fold defaultstate="collapsed" desc="INIT LIST RESPONDER">
     public void initListResponder() {
 
-        ResponderDTO responderDTO = new ResponderDTO();
-
         // 1
+        ResponderDTO responderDTO = new ResponderDTO();
         responderDTO.setUserName("responder 1");
         responderDTO.setPassword("responder");
         responderDTO.setGender("male");
@@ -123,6 +126,7 @@ public class DatingService {
         responderList.add(responderDTO);
 
         // 2
+        responderDTO = new ResponderDTO();
         responderDTO.setUserName("responder 2");
         responderDTO.setPassword("responder");
         responderDTO.setGender("female");
@@ -131,12 +135,15 @@ public class DatingService {
         responderList.add(responderDTO);
 
         // 3
+        responderDTO = new ResponderDTO();
         responderDTO.setUserName("responder 3");
         responderDTO.setPassword("responder");
         responderDTO.setGender("male");
         responderDTO.setAge(40);
         responderDTO.setIncome(40000f);
         responderList.add(responderDTO);
+        
+        System.out.println("\n");
 
     }
     //</editor-fold>
@@ -149,6 +156,7 @@ public class DatingService {
         for (int ri = 0; ri < responderList.size(); ri++) {
             System.out.println(ri + 1 + ") User name: " + responderList.get(ri).getUserName() + " Pass word: " + responderList.get(ri).getPassword());
         }
+        System.out.println("\n");
         
     }
     //</editor-fold>
@@ -170,6 +178,7 @@ public class DatingService {
         }
         
         if (advertiserMatchList.isEmpty()) {
+            System.out.println("This responder has not matches");
             return false;
         }
         
@@ -190,6 +199,7 @@ public class DatingService {
         for (int ai = 0; ai < advertiserMatchList.size(); ai++) {
             System.out.println(ai + 1 + " User name: " + advertiserMatchList.get(ai).getUserName() + " Age: " + advertiserMatchList.get(ai).getAge());
         }
+        System.out.println("\n");
         
     }
 //</editor-fold>
@@ -206,8 +216,12 @@ public class DatingService {
         boolean isExist = false;
         Integer numberAd = 0;
         while (!isExist) {
-            System.out.print("Please choose advertiser with numbervariable : " + numberAdvertise);
-            numberAd = Integer.parseInt(scanner.nextLine());
+            System.out.print("Please choose advertiser with number variable " + numberAdvertise + ": ");
+            String number = scanner.nextLine();
+            if (!isNumeric(number)) {
+                continue;
+            }
+            numberAd = Integer.parseInt(number);
             if (numberAd > 0 && numberAd <= advertiserMatchList.size()) {
                 isExist = true;
             }
@@ -216,12 +230,13 @@ public class DatingService {
         // Send message to advertiser choosed
         String message = "";
         while ("".equals(message)) {
-            System.out.println("Please input message not null: ");
+            System.out.print("Please input message not null: ");
             message = scanner.nextLine();
         }
+        System.out.println("\n");
         
         // Add responder's message to advertise be choosed
-        AdvertiserDTO advertiserMatchDTO = advertiserMatchList.get(numberAd);
+        AdvertiserDTO advertiserMatchDTO = advertiserMatchList.get(numberAd - 1);
         AdvertiserReplyDTO advertiserReplyDTO = new AdvertiserReplyDTO();
         advertiserReplyDTO.setResponders(responderDTO);
         advertiserReplyDTO.setMessage(message);
@@ -250,6 +265,7 @@ public class DatingService {
             AdvertiserReplyDTO advertiserReplyDTO = advertiserDTO.getAdvertiserReplyList().get(mi);
             System.out.println(mi + 1 + ") Username: " + advertiserReplyDTO.getResponders().getUserName() + " Message: " + advertiserReplyDTO.getMessage());
         }
+        System.out.println("\n");
         
     }
     //</editor-fold>
@@ -265,7 +281,11 @@ public class DatingService {
         Integer numAd = 1;
         while (!isExit) {
             System.out.print("Please input 1[create advertiser] or 2[create responder]: ");
-            numAd = Integer.parseInt(scanner.nextLine());
+            String number = scanner.nextLine();
+            if (!isNumeric(number)) {
+                continue;
+            }
+            numAd = Integer.parseInt(number);
             if (numAd == 1 || numAd == 2) {
                 isExit = true;
             }
@@ -278,6 +298,7 @@ public class DatingService {
         if (numAd == 2) {
             createResponder();
         }
+        System.out.println("\n");
         
     }
     //</editor-fold>
@@ -310,13 +331,21 @@ public class DatingService {
         Integer age = -1;
         while (age < 0) {
             System.out.print("Please input age: ");
-            age = Integer.parseInt(scanner.nextLine());
+            String ageStr = scanner.nextLine();
+            if (!isNumeric(ageStr)) {
+                continue;
+            }
+            age = Integer.parseInt(ageStr);
         }
         
         float income = -1f;
         while (income < 0) {
             System.out.print("Please input income: ");
-            income = Float.parseFloat(scanner.nextLine());
+            String incomeStr = scanner.nextLine();
+            if (!isNumeric(incomeStr)) {
+                continue;
+            }
+            income = Float.parseFloat(incomeStr);
         }
         
         System.out.println("INPUT INFORMATION PARTNER SOUGHT");
@@ -329,25 +358,41 @@ public class DatingService {
         Integer minAgeWant = -1;
         while(minAgeWant < 0) {
             System.out.print("Please input min age which you want: ");
-            minAgeWant = Integer.parseInt(scanner.nextLine());
+            String minAgeWantStr = scanner.nextLine();
+            if (!isNumeric(minAgeWantStr)) {
+                continue;
+            }
+            minAgeWant = Integer.parseInt(minAgeWantStr);
         }
         
         Integer maxAgeWant = -1;
         while(maxAgeWant < 0) {
             System.out.print("Please input max age which you want: ");
-            maxAgeWant = Integer.parseInt(scanner.nextLine());
+            String maxAgeWantStr = scanner.nextLine();
+            if (!isNumeric(maxAgeWantStr)) {
+                continue;
+            }
+            maxAgeWant = Integer.parseInt(maxAgeWantStr);
         }
         
         float minIncomeWant = -1f;
         while(minIncomeWant < 0) {
             System.out.print("Please input min income which you want: ");
-            minIncomeWant = Integer.parseInt(scanner.nextLine());
+            String minIncomeWantStr = scanner.nextLine();
+            if (!isNumeric(minIncomeWantStr)) {
+                continue;
+            }
+            minIncomeWant = Integer.parseInt(minIncomeWantStr);
         }
         
         float maxIncomeWant = -1f;
         while(maxIncomeWant < 0) {
             System.out.print("Please input max income which you want: ");
-            maxIncomeWant = Integer.parseInt(scanner.nextLine());
+            String maxIncomeWantStr = scanner.nextLine();
+            if (!isNumeric(maxIncomeWantStr)) {
+                continue;
+            }
+            maxIncomeWant = Integer.parseInt(maxIncomeWantStr);
         }
         
         partnerSoughtDTO.setGender(genderWant);
@@ -393,13 +438,21 @@ public class DatingService {
         Integer age = -1;
         while (age < 0) {
             System.out.print("Please input age: ");
-            age = Integer.parseInt(scanner.nextLine());
+            String ageStr = scanner.nextLine();
+            if (!isNumeric(ageStr)) {
+                continue;
+            }
+            age = Integer.parseInt(ageStr);
         }
         
         float income = -1f;
         while (income < 0) {
             System.out.print("Please input income: ");
-            income = Float.parseFloat(scanner.nextLine());
+            String incomeStr = scanner.nextLine();
+            if (!isNumeric(incomeStr)) {
+                continue;
+            }
+            income = Float.parseFloat(incomeStr);
         }
         
         responderDTO.setUserName(username);
@@ -427,6 +480,7 @@ public class DatingService {
         for (int ri = 0; ri < responderList.size(); ri++) {
             System.out.println(ai + 1 + " User name: " + responderList.get(ri).getUserName() + " Age: " + responderList.get(ri).getAge());
         }
+        System.out.println("\n");
         
     }
     //</editor-fold>
@@ -452,6 +506,7 @@ public class DatingService {
         if (numCustomer > advertiserList.size()) {
             responderList.remove(numCustomer - advertiserList.size() - 1);
         }
+        System.out.println("\n");
         
     }
     //</editor-fold>
@@ -482,6 +537,7 @@ public class DatingService {
                 System.out.println("Content message:" + advertiserReplyDTO.getMessage());
             }
         }
+        System.out.println("\n");
         
     }
     //</editor-fold>
@@ -499,7 +555,14 @@ public class DatingService {
             System.out.println("Age: " + responderList.get(ri).getAge());
             System.out.println("Income: " + responderList.get(ri).getIncome());
         }
+        System.out.println("\n");
         
+    }
+    //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc="CHECK IS NUMERIC">
+    public Boolean isNumeric(String maybeNumeric) {
+        return maybeNumeric != null && maybeNumeric.matches("[0-9]+");
     }
     //</editor-fold>
 
