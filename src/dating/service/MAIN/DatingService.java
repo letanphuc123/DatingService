@@ -34,23 +34,19 @@ public class DatingService {
         //</editor-fold>
 
         //<editor-fold defaultstate="collapsed" desc="LOGIN RESPONDER TO MATCHES">
-        while (!datingService.loginResponder()) {
+        for (ResponderDTO responderDTO : datingService.responderList) {
+            System.out.println("STEP B: FIND MATCHES FOR RESPONDER " + responderDTO.getUserName());
+            System.out.println("--------------------------------------");
+            datingService.loginResponder(responderDTO);
         }
         //</editor-fold>
         
-        //<editor-fold defaultstate="collapsed" desc="LOGIN ADVERTISER TO GET MESSAGE">
-        //</editor-fold>
-        
-        //<editor-fold defaultstate="collapsed" desc="CREATE CUSTOMER">
-        //</editor-fold>
-        
-        //<editor-fold defaultstate="collapsed" desc="DELETE CUSTOMER">
-        //</editor-fold>
-        
         //<editor-fold defaultstate="collapsed" desc="SHOW ALL ADVERTISERS REGISTERED">
+        datingService.showAllAdvertisers();
         //</editor-fold>
         
         //<editor-fold defaultstate="collapsed" desc="SHOW ALL RESPONDERS REGISTERED">
+        datingService.showAllResponders();
         //</editor-fold>
     }
 
@@ -58,6 +54,8 @@ public class DatingService {
     public void initListResponder() {
 
         AdvertiserDTO advertiserDTO = new AdvertiserDTO();
+        System.out.println("STEP A: CREATE LIST CUSTOMER");
+        System.out.println("-----------------------------");
 
         // 1
         PartnerSoughtDTO partnerSoughtDTO = new PartnerSoughtDTO();
@@ -155,58 +153,10 @@ public class DatingService {
     }
     //</editor-fold>
     
-    //<editor-fold defaultstate="collapsed" desc="INPUT ACCOUNT LOGIN">
-    public List<String> getAccountLogin(String typeCustomer) {
-        
-        List<String> accountList = new ArrayList<>();
-        String username;
-        String password;
-        
-        // Input username password
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("1. Enter account " + typeCustomer);
-        System.out.println("--------------------------------");
-        System.out.print("Enter user name : ");
-        username = scanner.nextLine();
-        while ("".equals(username)) {
-            System.out.println("Please input user name not null!");
-            System.out.print("Enter user name : ");
-            username = scanner.nextLine();
-        }   System.out.print("Enter pass word : ");
-        password = scanner.nextLine();
-        while ("".equals(password)) {
-            System.out.println("Please input pass word not null!");
-            System.out.print("Enter pass word : ");
-            password = scanner.nextLine();
-        }
-        
-        scanner.close();
-        
-        accountList.add(username);
-        accountList.add(password);
-        
-        return accountList;
-        
-    }
-    //</editor-fold>
-
     //<editor-fold defaultstate="collapsed" desc="LOGIN RESPONDER TO MATCHES">
-    public Boolean loginResponder() {
+    public Boolean loginResponder(ResponderDTO responderDTO) {
 
-        ResponderDTO responderDTO = new ResponderDTO();
-        
-        // Check login
-        boolean isExist = false;
-        while (!isExist) {
-            List<String> account = getAccountLogin("responder");
-            for (ResponderDTO res : responderList) {
-            if (res.getUserName().equals(account.get(0)) && res.getPassword().equals(account.get(1))) {
-                isExist = true;
-                responderDTO = res;
-                break;
-            }
-        }
-        }
+        System.out.println("Responder " + responderDTO.getUserName() + " login succed: ");
         
         // Get list matches advertiser
         List<AdvertiserDTO> advertiserMatchList = new ArrayList<>();
@@ -281,8 +231,13 @@ public class DatingService {
         loginAdvertiser(advertiserMatchDTO);
         
         // Create customer
+        createCustomer();
+        
+        // Show all customers
+        showAllCustomer();
         
         // Delete customer
+        deleteCustomer();
     }
     //</editor-fold>
     
@@ -303,8 +258,8 @@ public class DatingService {
     public void createCustomer() {
         
         Scanner scanner = new Scanner(System.in);
-        System.out.println("CREATE CUSTOMER");
-        System.out.println("---------------");
+        System.out.println("STEP C: CREATE CUSTOMER");
+        System.out.println("------------------------");
         
         boolean isExit = false;
         Integer numAd = 1;
@@ -457,22 +412,94 @@ public class DatingService {
         
     }
     //</editor-fold>
-
+    
+    //<editor-fold defaultstate="collapsed" desc="SHOW ALL CUSTOMER">
+    public void showAllCustomer() {
+        
+        System.out.println("SHOW ALL CUSTOMER");
+        System.out.println("------------------");
+        
+        int ai = 0;
+        for (ai = 0; ai < advertiserList.size(); ai++) {
+            System.out.println(ai + 1 + " User name: " + advertiserList.get(ai).getUserName() + " Age: " + advertiserList.get(ai).getAge());
+        }
+        
+        for (int ri = 0; ri < responderList.size(); ri++) {
+            System.out.println(ai + 1 + " User name: " + responderList.get(ri).getUserName() + " Age: " + responderList.get(ri).getAge());
+        }
+        
+    }
+    //</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc="DELETE CUSTOMER">
     public void deleteCustomer() {
-
+        
+        Scanner scanner = new Scanner(System.in);
+        Integer numCustomer = 0;
+        
+        System.out.println("STEP D: DELETE CUSTOMER");
+        System.out.println("-----------------------");
+        
+        while(numCustomer <= 0) {
+            System.out.print("Please input NO customer you want delete: ");
+            numCustomer = Integer.parseInt(scanner.nextLine());
+        }
+        
+        if (numCustomer <= advertiserList.size()) {
+            advertiserList.remove(numCustomer - 1);
+        }
+        
+        if (numCustomer > advertiserList.size()) {
+            responderList.remove(numCustomer - advertiserList.size() - 1);
+        }
+        
     }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="SHOW ALL ADVERTISERS REGISTERED">
     public void showAllAdvertisers() {
-
+        
+        System.out.println("STEP E: SHOW DETAL ALL ADVERTISER REGISTED");
+        System.out.println("-------------------------------------------");
+        
+        for (int ri = 0; ri < advertiserList.size(); ri++) {
+            System.out.println("----- NUMBER " + ri + 1 + " -----");
+            System.out.println("User name: " + advertiserList.get(ri).getUserName());
+            System.out.println("Gender: " + advertiserList.get(ri).getGender());
+            System.out.println("Age: " + advertiserList.get(ri).getAge());
+            System.out.println("Income: " + advertiserList.get(ri).getIncome());
+            System.out.println("Gender match: " + advertiserList.get(ri).getPartnerSought().getGender());
+            System.out.println("Range age match: [" + advertiserList.get(ri).getPartnerSought().getMinAge() + " - " + advertiserList.get(ri).getPartnerSought().getMinAge() + "]");
+            System.out.println("Range income match: [" + advertiserList.get(ri).getPartnerSought().getMinIncome()+ " - " + advertiserList.get(ri).getPartnerSought().getMaxIncome()+ "]");
+            System.out.println("SHOW LIST MESSAGE");
+            for (int mi = 0; mi < advertiserList.get(ri).getAdvertiserReplyList().size(); mi++) {
+                AdvertiserReplyDTO advertiserReplyDTO = advertiserList.get(ri).getAdvertiserReplyList().get(mi);
+                System.out.println("MESSAGE " + mi + 1);
+                System.out.println("User name: " + advertiserReplyDTO.getResponders().getUserName());
+                System.out.println("Gender: " + advertiserReplyDTO.getResponders().getGender());
+                System.out.println("Age: " + advertiserReplyDTO.getResponders().getAge());
+                System.out.println("Income: " + advertiserReplyDTO.getResponders().getIncome());
+                System.out.println("Content message:" + advertiserReplyDTO.getMessage());
+            }
+        }
+        
     }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="SHOW ALL RESPONDERS REGISTERED">
     public void showAllResponders() {
 
+        System.out.println("STEP F: SHOW DETAIL ALL RESPONDER REGISTED");
+        System.out.println("------------------------------------------");
+        
+        for (int ri = 0; ri < responderList.size(); ri++) {
+            System.out.println("----- NUMBER " + ri + 1 + " -----");
+            System.out.println("User name: " + responderList.get(ri).getUserName());
+            System.out.println("Gender: " + responderList.get(ri).getGender());
+            System.out.println("Age: " + responderList.get(ri).getAge());
+            System.out.println("Income: " + responderList.get(ri).getIncome());
+        }
+        
     }
     //</editor-fold>
 
