@@ -375,7 +375,7 @@ public class DatingService {
             maxAgeWant = Integer.parseInt(maxAgeWantStr);
         }
         
-        float minIncomeWant = -1f;
+        Integer minIncomeWant = -1;
         while(minIncomeWant < 0) {
             System.out.print("Please input min income which you want: ");
             String minIncomeWantStr = scanner.nextLine();
@@ -385,7 +385,7 @@ public class DatingService {
             minIncomeWant = Integer.parseInt(minIncomeWantStr);
         }
         
-        float maxIncomeWant = -1f;
+        Integer maxIncomeWant = -1;
         while(maxIncomeWant < 0) {
             System.out.print("Please input max income which you want: ");
             String maxIncomeWantStr = scanner.nextLine();

@@ -5,15 +5,15 @@ public class PartnerSoughtDTO {
     public String Gender;
     public Integer MinAge;
     public Integer MaxAge;
-    public Float MinIncome;
-    public Float MaxIncome;
+    public Integer MinIncome;
+    public Integer MaxIncome;
 
     public PartnerSoughtDTO() {
         this.Gender = "";
         this.MinAge = 0;
         this.MaxAge = 0;
-        this.MinIncome = 0f;
-        this.MaxIncome = 0f;
+        this.MinIncome = 0;
+        this.MaxIncome = 0;
     }
 
     public String getGender() {
@@ -40,19 +40,19 @@ public class PartnerSoughtDTO {
         this.MaxAge = MaxAge;
     }
 
-    public Float getMinIncome() {
+    public Integer getMinIncome() {
         return MinIncome;
     }
 
-    public void setMinIncome(Float MinIncome) {
+    public void setMinIncome(Integer MinIncome) {
         this.MinIncome = MinIncome;
     }
 
-    public Float getMaxIncome() {
+    public Integer getMaxIncome() {
         return MaxIncome;
     }
 
-    public void setMaxIncome(Float MaxIncome) {
+    public void setMaxIncome(Integer MaxIncome) {
         this.MaxIncome = MaxIncome;
     }
     
