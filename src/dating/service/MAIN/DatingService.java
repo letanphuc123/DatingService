@@ -69,7 +69,7 @@ public class DatingService {
         advertiserDTO.setPassword("advertiser");
         advertiserDTO.setGender("male");
         advertiserDTO.setAge(20);
-        advertiserDTO.setIncome(20000f);
+        advertiserDTO.setIncome(20000);
         advertiserDTO.setAdvertDescription("Hello! I'm advertiser 1");
         advertiserDTO.setPartnerSought(partnerSoughtDTO);
         advertiserList.add(advertiserDTO);
@@ -87,7 +87,7 @@ public class DatingService {
         advertiserDTO.setPassword("advertiser");
         advertiserDTO.setGender("female");
         advertiserDTO.setAge(30);
-        advertiserDTO.setIncome(30000f);
+        advertiserDTO.setIncome(30000);
         advertiserDTO.setAdvertDescription("Hello! I'm advertiser 2");
         advertiserDTO.setPartnerSought(partnerSoughtDTO);
         advertiserList.add(advertiserDTO);
@@ -105,7 +105,7 @@ public class DatingService {
         advertiserDTO.setPassword("advertiser");
         advertiserDTO.setGender("male");
         advertiserDTO.setAge(40);
-        advertiserDTO.setIncome(40000f);
+        advertiserDTO.setIncome(40000);
         advertiserDTO.setAdvertDescription("Hello! I'm advertiser 3");
         advertiserDTO.setPartnerSought(partnerSoughtDTO);
         advertiserList.add(advertiserDTO);
@@ -122,7 +122,7 @@ public class DatingService {
         responderDTO.setPassword("responder");
         responderDTO.setGender("male");
         responderDTO.setAge(20);
-        responderDTO.setIncome(20000f);
+        responderDTO.setIncome(20000);
         responderList.add(responderDTO);
 
         // 2
@@ -131,7 +131,7 @@ public class DatingService {
         responderDTO.setPassword("responder");
         responderDTO.setGender("female");
         responderDTO.setAge(30);
-        responderDTO.setIncome(30000f);
+        responderDTO.setIncome(30000);
         responderList.add(responderDTO);
 
         // 3
@@ -140,7 +140,7 @@ public class DatingService {
         responderDTO.setPassword("responder");
         responderDTO.setGender("male");
         responderDTO.setAge(40);
-        responderDTO.setIncome(40000f);
+        responderDTO.setIncome(40000);
         responderList.add(responderDTO);
         
         System.out.println("\n");
@@ -216,7 +216,7 @@ public class DatingService {
         boolean isExist = false;
         Integer numberAd = 0;
         while (!isExist) {
-            System.out.print("Please choose advertiser with number variable " + numberAdvertise + ": ");
+            System.out.print("Please choose advertiser with number variable [" + numberAdvertise + "]: ");
             String number = scanner.nextLine();
             if (!isNumeric(number)) {
                 continue;
@@ -338,14 +338,14 @@ public class DatingService {
             age = Integer.parseInt(ageStr);
         }
         
-        float income = -1f;
+        Integer income = -1;
         while (income < 0) {
             System.out.print("Please input income: ");
             String incomeStr = scanner.nextLine();
             if (!isNumeric(incomeStr)) {
                 continue;
             }
-            income = Float.parseFloat(incomeStr);
+            income = Integer.parseInt(incomeStr);
         }
         
         System.out.println("INPUT INFORMATION PARTNER SOUGHT");
@@ -408,6 +408,8 @@ public class DatingService {
         advertiserDTO.setIncome(income);
         advertiserDTO.setPartnerSought(partnerSoughtDTO);
         
+        advertiserList.add(advertiserDTO);
+        
     }
     //</editor-fold>
     
@@ -445,14 +447,14 @@ public class DatingService {
             age = Integer.parseInt(ageStr);
         }
         
-        float income = -1f;
+        Integer income = -1;
         while (income < 0) {
             System.out.print("Please input income: ");
             String incomeStr = scanner.nextLine();
             if (!isNumeric(incomeStr)) {
                 continue;
             }
-            income = Float.parseFloat(incomeStr);
+            income = Integer.parseInt(incomeStr);
         }
         
         responderDTO.setUserName(username);
@@ -479,6 +481,7 @@ public class DatingService {
         
         for (int ri = 0; ri < responderList.size(); ri++) {
             System.out.println(ai + 1 + " User name: " + responderList.get(ri).getUserName() + " Age: " + responderList.get(ri).getAge());
+            ai++;
         }
         System.out.println("\n");
         

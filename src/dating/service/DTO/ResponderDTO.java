@@ -6,14 +6,14 @@ public class ResponderDTO {
     public String Password;
     public String Gender;
     public Integer Age;
-    public Float Income;
+    public Integer Income;
 
     public ResponderDTO() {
         this.UserName = "";
         this.Password = "";
         this.Gender = "";
         this.Age = 0;
-        this.Income = 0f;
+        this.Income = 0;
     }
 
     public String getUserName() {
@@ -48,11 +48,11 @@ public class ResponderDTO {
         this.Age = Age;
     }
 
-    public Float getIncome() {
+    public Integer getIncome() {
         return Income;
     }
 
-    public void setIncome(Float Income) {
+    public void setIncome(Integer Income) {
         this.Income = Income;
     }
     

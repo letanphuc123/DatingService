@@ -11,7 +11,7 @@ public class AdvertiserDTO {
     public String Password;
     public String Gender;
     public Integer Age;
-    public Float Income;
+    public Integer Income;
     public String AdvertDescription;
     public PartnerSoughtDTO PartnerSought;
     public List<AdvertiserReplyDTO> AdvertiserReplyList; 
@@ -21,7 +21,7 @@ public class AdvertiserDTO {
         this.Password = "";
         this.Gender = "";
         this.Age = 0;
-        this.Income = 0f;
+        this.Income = 0;
         this.AdvertDescription = "";
         this.PartnerSought = new PartnerSoughtDTO();
         this.AdvertiserReplyList = new ArrayList<>();
@@ -59,11 +59,11 @@ public class AdvertiserDTO {
         this.Age = Age;
     }
 
-    public Float getIncome() {
+    public Integer getIncome() {
         return Income;
     }
 
-    public void setIncome(Float Income) {
+    public void setIncome(Integer Income) {
         this.Income = Income;
     }
 
